@@ -1,6 +1,10 @@
 /** Provider-neutral contract: the author starts one fresh session, never a CI model job. */
 export const LOCAL_REVIEW_PROMPT = `# Independent pre-merge review
 
+## Hard rule: no idle retry loops
+
+Never retry, merge, pull, deploy, poll, or re-attempt a task in a loop when there is no new activity, no user response, or Robbie is unavailable. If a PR, merge, deployment, or task has no changes since the last attempt, do not retry it on a schedule (for example hourly) for hours or days. Make one attempt, report the status once, and then wait for Robbie to respond or for genuinely new information to arrive (a new commit, comment, review, CI result, or event). This applies to merge attempts, pull requests, deployments, syncs, and any background polling. Reason: an automation once retried every hour for 72 hours with no changes and burned tokens for nothing.
+
 The authoring agent has explicitly started you for this bounded review. You are not a standing
 PR monitor; return findings to the author, who owns follow-up, evidence, CI and merge.
 You are a fresh reviewer session, not the author. Read AGENTS.md, the ticket and acceptance

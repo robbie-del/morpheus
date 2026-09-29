@@ -9,6 +9,10 @@ Morpheus does two things:
 
 Named for the Greek god who gives shape to formless things — from *morphē*, "form."
 
+## For AI agents
+
+Follow [Hard rule: no idle retry loops](./AGENTS.md#hard-rule-no-idle-retry-loops) in [`AGENTS.md`](./AGENTS.md). Make one attempt, report the status once, and wait for Robbie or for genuinely new information.
+
 ## Status
 
 Early. The project management layer is built and in use; the initializer is not written yet —

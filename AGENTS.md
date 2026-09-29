@@ -3,6 +3,10 @@
 Read this before doing anything. `CLAUDE.md` is a symlink to this file so Claude and Codex
 read the same instructions.
 
+## Hard rule: no idle retry loops
+
+Never retry, merge, pull, deploy, poll, or re-attempt a task in a loop when there is no new activity, no user response, or Robbie is unavailable. If a PR, merge, deployment, or task has no changes since the last attempt, do not retry it on a schedule (for example hourly) for hours or days. Make one attempt, report the status once, and then wait for Robbie to respond or for genuinely new information to arrive (a new commit, comment, review, CI result, or event). This applies to merge attempts, pull requests, deployments, syncs, and any background polling. Reason: an automation once retried every hour for 72 hours with no changes and burned tokens for nothing.
+
 ## What this repo is
 
 Morpheus scaffolds new company repositories and maintains the reusable packages they depend

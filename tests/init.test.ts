@@ -66,6 +66,21 @@ describe("morpheus init", () => {
     expect(await read(".github/pull_request_template.md")).toContain("review-record:");
   });
 
+  it("puts the no-idle-retry hard rule near the top of scaffolded AGENTS.md", async () => {
+    await scaffold(dir, SEED);
+    const agents = await read("AGENTS.md");
+    const heading = agents.indexOf("## Hard rule: no idle retry loops");
+    const layout = agents.indexOf("## Layout");
+    expect(heading).toBeGreaterThan(0);
+    expect(layout).toBeGreaterThan(heading);
+    expect(agents).toContain(
+      "Never retry, merge, pull, deploy, poll, or re-attempt a task in a loop when there is no new activity, no user response, or Robbie is unavailable.",
+    );
+    expect(agents).toContain(
+      "Reason: an automation once retried every hour for 72 hours with no changes and burned tokens for nothing.",
+    );
+  });
+
   it("symlinks CLAUDE.md rather than copying AGENTS.md", async () => {
     await scaffold(dir, SEED);
     const stat = await lstat(join(dir, "CLAUDE.md"));
